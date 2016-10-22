@@ -1,0 +1,11 @@
+---
+title: "Cleaning for Nursing Pilot Oct 2016 data"
+author: "Kate Block"
+date: "`r format(Sys.Date())`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
