@@ -10,8 +10,26 @@ library(knitr)
 library(Hmisc)
 ```
 
+SUMMARY
+=======
+
+-   Sample of 192 men and women after selecting only heterosexual people
+-   GOAL: select DVS, refine predictions
+-   In this pilot, we tried out 3 measures of "interest"
+    -   A self-report fit measure we made up (6 items)
+    -   A 3-item interest measure we have use previously
+    -   A measure of ranking nursing against other jobs
+-   The New FIT measure shows great intercorrelations, so all items seem reliable
+-   Fit, interest and Rank of nursing show predicted gender differences
+-   All three relate to communal values
+-   For men, Fit and interest but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure
+-   Ran interactions for men predicting interest and fit from "rate of men moving into nursing" \* "communal values"
+    -   Seems like both independently have an effect
+    -   interactions are small-ish and ns. They are in the wrong direction for FIT?
+    -   SOOOOO... maybe we should expect an additive effect rather than an interaction.
+
 reading file
-------------
+============
 
 ``` r
 CLEAN_hetero <- read_csv("/Users/KatharinaBlock/Desktop/Git_REPOS/NursingDVPilot_oct2016/Nursing2pilot_clean_hetero.csv")
@@ -175,25 +193,30 @@ I display these in different ways NOTES:
 Correlations JUST FOR MEN!
 ==========================
 
-|                       |  rate\_men\_nursing|  male\_nurse\_positive|  communal\_values|  agentic\_values|  rank\_nurse|  fit\_nursing|  interest\_comp|
-|-----------------------|-------------------:|----------------------:|-----------------:|----------------:|------------:|-------------:|---------------:|
-| rate\_men\_nursing    |           1.0000000|              0.2326970|         0.2478697|        0.0687668|   -0.1379426|     0.3303507|       0.2565778|
-| male\_nurse\_positive |           0.2326970|              1.0000000|         0.1659322|       -0.0382632|   -0.0420246|     0.1302183|       0.0819289|
-| communal\_values      |           0.2478697|              0.1659322|         1.0000000|        0.3276650|   -0.3220410|     0.3577680|       0.3182880|
-| agentic\_values       |           0.0687668|             -0.0382632|         0.3276650|        1.0000000|    0.1006952|    -0.0170592|      -0.0099438|
-| rank\_nurse           |          -0.1379426|             -0.0420246|        -0.3220410|        0.1006952|    1.0000000|    -0.6682702|      -0.6533786|
-| fit\_nursing          |           0.3303507|              0.1302183|         0.3577680|       -0.0170592|   -0.6682702|     1.0000000|       0.6856524|
-| interest\_comp        |           0.2565778|              0.0819289|         0.3182880|       -0.0099438|   -0.6533786|     0.6856524|       1.0000000|
+-   For men, all FIT, interest and rankare correlate with communal
+-   But only FIT and interest are related to rate
+-   Seems like RANK won't work well
+-   How positive male nurses are seen is probably not a great measure, it doens't really correlate with things!
 
-|                       |  rate\_men\_nursing|  male\_nurse\_positive|  communal\_values|  agentic\_values|  rank\_nurse|  fit\_nursing|  interest\_comp|
-|-----------------------|-------------------:|----------------------:|-----------------:|----------------:|------------:|-------------:|---------------:|
-| rate\_men\_nursing    |                  NA|              0.0204594|         0.0133729|        0.4988295|    0.1733244|     0.0008394|       0.0103604|
-| male\_nurse\_positive |           0.0204594|                     NA|         0.1007067|        0.7069044|    0.6795980|     0.1989047|       0.4201356|
-| communal\_values      |           0.0133729|              0.1007067|                NA|        0.0009306|    0.0011515|     0.0002773|       0.0013244|
-| agentic\_values       |           0.4988295|              0.7069044|         0.0009306|               NA|    0.3213420|     0.8669034|       0.9221821|
-| rank\_nurse           |           0.1733244|              0.6795980|         0.0011515|        0.3213420|           NA|     0.0000000|       0.0000000|
-| fit\_nursing          |           0.0008394|              0.1989047|         0.0002773|        0.8669034|    0.0000000|            NA|       0.0000000|
-| interest\_comp        |           0.0103604|              0.4201356|         0.0013244|        0.9221821|    0.0000000|     0.0000000|              NA|
+    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
+    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
+    |     rate\_men\_nursing| 1.0000000           | 0.2326970              | 0.2478697         | 0.0687668        | -0.1379426   | 0.3303507     | 0.2565778   |
+    |  male\_nurse\_positive| 0.2326970           | 1.0000000              | 0.1659322         | -0.0382632       | -0.0420246   | 0.1302183     | 0.0819289   |
+    |       communal\_values| 0.2478697           | 0.1659322              | 1.0000000         | 0.3276650        | -0.3220410   | 0.3577680     | 0.3182880   |
+    |        agentic\_values| 0.0687668           | -0.0382632             | 0.3276650         | 1.0000000        | 0.1006952    | -0.0170592    | -0.0099438  |
+    |            rank\_nurse| -0.1379426          | -0.0420246             | -0.3220410        | 0.1006952        | 1.0000000    | -0.6682702    | -0.6533786  |
+    |           fit\_nursing| 0.3303507           | 0.1302183              | 0.3577680         | -0.0170592       | -0.6682702   | 1.0000000     | 0.6856524   |
+    |         interest\_comp| 0.2565778           | 0.0819289              | 0.3182880         | -0.0099438       | -0.6533786   | 0.6856524     | 1.0000000   |
+
+    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
+    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
+    |     rate\_men\_nursing| NA                  | 0.0204594              | 0.0133729         | 0.4988295        | 0.1733244    | 0.0008394     | 0.0103604   |
+    |  male\_nurse\_positive| 0.0204594           | NA                     | 0.1007067         | 0.7069044        | 0.6795980    | 0.1989047     | 0.4201356   |
+    |       communal\_values| 0.0133729           | 0.1007067              | NA                | 0.0009306        | 0.0011515    | 0.0002773     | 0.0013244   |
+    |        agentic\_values| 0.4988295           | 0.7069044              | 0.0009306         | NA               | 0.3213420    | 0.8669034     | 0.9221821   |
+    |            rank\_nurse| 0.1733244           | 0.6795980              | 0.0011515         | 0.3213420        | NA           | 0.0000000     | 0.0000000   |
+    |           fit\_nursing| 0.0008394           | 0.1989047              | 0.0002773         | 0.8669034        | 0.0000000    | NA            | 0.0000000   |
+    |         interest\_comp| 0.0103604           | 0.4201356              | 0.0013244         | 0.9221821        | 0.0000000    | 0.0000000     | NA          |
 
 ![](Analyses_nursingpilot_oct2016_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
@@ -220,3 +243,130 @@ Correlations JUST FOR MEN!
 | agentic\_values       | interest\_comp        |  -0.0099438|  0.9221821|
 | rank\_nurse           | interest\_comp        |  -0.6533786|  0.0000000|
 | fit\_nursing          | interest\_comp        |   0.6856524|  0.0000000|
+
+Linear Models
+=============
+
+-   We don't really have the power here but I am trying to see if there is an interaction between values and norms?
+-   There is a small interaction, but it is not significant AND IN THE WRONG DIRECTION for fit & rank, in the right for interest.
+-   Seems like there is a strong additive effect?? Might have to adjust predictions?
+
+predicting Fit
+--------------
+
+``` r
+regression <- lm (fit_nursing ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(regression)) %>% kable ()
+```
+
+|                                                   |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|---------------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                       |   4.2113611|   0.1182968|  35.5999709|    0.0000000|
+| scale(rate\_men\_nursing)                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
+| scale(communal\_values)                           |   0.3472495|   0.1218968|   2.8487164|    0.0053816|
+| scale(rate\_men\_nursing):scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+
+``` r
+MENONLY$rate_men_nursingLOW <- scale(MENONLY$rate_men_nursing) + 1
+MENONLY$rate_men_nursingHIGH <- scale(MENONLY$rate_men_nursing) - 1
+
+regressionLOW <- lm (fit_nursing ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(regressionLOW)) %>% kable ()
+```
+
+|                                               |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|-----------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                   |   3.8621855|   0.1656561|  23.3144843|    0.0000000|
+| rate\_men\_nursingLOW                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
+| scale(communal\_values)                       |   0.4470694|   0.1485276|   3.0100088|    0.0033456|
+| rate\_men\_nursingLOW:scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+
+``` r
+regressionHIGH <- lm (fit_nursing ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(regressionHIGH)) %>% kable ()
+```
+
+|                                                |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|------------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                    |   4.5605367|   0.1752114|  26.0287615|    0.0000000|
+| rate\_men\_nursingHIGH                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
+| scale(communal\_values)                        |   0.2474296|   0.1830720|   1.3515431|    0.1797310|
+| rate\_men\_nursingHIGH:scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+
+predicting interest
+===================
+
+``` r
+Bregression <- lm (interest_comp ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(Bregression)) %>% kable ()
+```
+
+|                                                   |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|---------------------------------------------------|----------:|-----------:|-----------:|------------:|
+| (Intercept)                                       |  3.0196266|   0.1416836|  21.3124572|    0.0000000|
+| scale(rate\_men\_nursing)                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
+| scale(communal\_values)                           |  0.4130944|   0.1459954|   2.8295017|    0.0056883|
+| scale(rate\_men\_nursing):scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+
+``` r
+BregressionLOW <- lm (interest_comp ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(BregressionLOW)) %>% kable ()
+```
+
+|                                               |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|-----------------------------------------------|----------:|-----------:|-----------:|------------:|
+| (Intercept)                                   |  2.7662530|   0.1984057|  13.9424055|    0.0000000|
+| rate\_men\_nursingLOW                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
+| scale(communal\_values)                       |  0.3284150|   0.1778910|   1.8461583|    0.0679831|
+| rate\_men\_nursingLOW:scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+
+``` r
+BregressionHIGH <- lm (interest_comp ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(BregressionHIGH)) %>% kable ()
+```
+
+|                                                |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|------------------------------------------------|----------:|-----------:|-----------:|------------:|
+| (Intercept)                                    |  3.2730002|   0.2098502|  15.5968428|    0.0000000|
+| rate\_men\_nursingHIGH                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
+| scale(communal\_values)                        |  0.4977737|   0.2192647|   2.2701955|    0.0254556|
+| rate\_men\_nursingHIGH:scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+
+predicting rank
+===============
+
+``` r
+Cregression <- lm (rank_nurse ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(Cregression)) %>% kable ()
+```
+
+|                                                   |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|---------------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                       |   7.8000535|   0.3964212|  19.6761783|    0.0000000|
+| scale(rate\_men\_nursing)                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
+| scale(communal\_values)                           |  -1.1747209|   0.4084853|  -2.8757974|    0.0049750|
+| scale(rate\_men\_nursing):scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
+
+``` r
+CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(CregressionLOW)) %>% kable ()
+```
+
+|                                               |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|-----------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                   |   8.1091360|   0.5551257|  14.6077484|    0.0000000|
+| rate\_men\_nursingLOW                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
+| scale(communal\_values)                       |  -1.4132723|   0.4977269|  -2.8394532|    0.0055275|
+| rate\_men\_nursingLOW:scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
+
+``` r
+CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(CregressionHIGH)) %>% kable ()
+```
+
+|                                                |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
+|------------------------------------------------|-----------:|-----------:|-----------:|------------:|
+| (Intercept)                                    |   7.4909709|   0.5871465|  12.7582663|    0.0000000|
+| rate\_men\_nursingHIGH                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
+| scale(communal\_values)                        |  -0.9361695|   0.6134877|  -1.5259794|    0.1303375|
+| rate\_men\_nursingHIGH:scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|

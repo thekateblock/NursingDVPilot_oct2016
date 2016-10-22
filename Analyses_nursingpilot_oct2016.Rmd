@@ -16,7 +16,24 @@ library(knitr)
 library(Hmisc)
 ```
 
-## reading file
+# SUMMARY
+
+* Sample of 192 men and women after selecting only heterosexual people
+* GOAL: select DVS, refine predictions
+* In this pilot, we tried out 3 measures of "interest"
+    + A self-report fit measure we made up (6 items)
+    + A 3-item interest measure we have use previously
+    + A measure of ranking nursing against other jobs
+* The New FIT measure shows great intercorrelations, so all items seem reliable 
+* Fit, interest and Rank of nursing show predicted gender differences
+* All three relate to communal values
+* For men, Fit and interest but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure
+* Ran interactions for men predicting interest and fit from "rate of men moving into nursing" * "communal values"
+    + Seems like both independently have an effect
+    + interactions are small-ish and ns. They are in the wrong direction for FIT?
+    + SOOOOO... maybe we should expect an additive effect rather than an interaction.
+
+#reading file
 
 ```{r, message=FALSE}
 CLEAN_hetero <- read_csv("/Users/KatharinaBlock/Desktop/Git_REPOS/NursingDVPilot_oct2016/Nursing2pilot_clean_hetero.csv")
@@ -102,6 +119,11 @@ flattenCorrMatrix(corrs3$r, corrs3$P) %>% kable()
 
 # Correlations JUST FOR MEN!
 
+* For men, all FIT, interest and rankare correlate with communal 
+* But only FIT and interest are related to rate
+* Seems like RANK won't work well
+* How positive male nurses are seen is probably not a great measure, it doens't really correlate with things!
+
 ```{r, warning=FALSE, echo=FALSE}
 MENONLY <- CLEAN_hetero %>% filter(gender == "Male") 
 
@@ -126,5 +148,49 @@ chart.Correlation(my_dataMEN, histogram=TRUE, pch=19)
 flattenCorrMatrix(corrs4$r, corrs4$P) %>% kable()
 ```
 
+# Linear Models
 
+* We don't really have the power here but I am trying to see if there is an interaction between values and norms?
+* There is a small interaction, but it is not significant AND IN THE WRONG DIRECTION for fit & rank, in the right for interest.
+* Seems like there is a strong additive effect?? Might have to adjust predictions?
+
+## predicting Fit
+```{r}
+regression <- lm (fit_nursing ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(regression)) %>% kable ()
+
+MENONLY$rate_men_nursingLOW <- scale(MENONLY$rate_men_nursing) + 1
+MENONLY$rate_men_nursingHIGH <- scale(MENONLY$rate_men_nursing) - 1
+
+regressionLOW <- lm (fit_nursing ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(regressionLOW)) %>% kable ()
+
+regressionHIGH <- lm (fit_nursing ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(regressionHIGH)) %>% kable ()
+```
+
+# predicting interest
+
+```{r}
+Bregression <- lm (interest_comp ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(Bregression)) %>% kable ()
+
+BregressionLOW <- lm (interest_comp ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(BregressionLOW)) %>% kable ()
+
+BregressionHIGH <- lm (interest_comp ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(BregressionHIGH)) %>% kable ()
+```
+
+# predicting rank 
+```{r}
+Cregression <- lm (rank_nurse ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+coef(summary(Cregression)) %>% kable ()
+
+CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+coef(summary(CregressionLOW)) %>% kable ()
+
+CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+coef(summary(CregressionHIGH)) %>% kable ()
+```
 
