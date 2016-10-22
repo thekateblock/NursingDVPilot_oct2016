@@ -187,12 +187,20 @@ coef(summary(BregressionHIGH)) %>% kable ()
 ```{r}
 
 Cregression <- lm (rank_nurse ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
-coef(summary(Cregression)) %>% kable ()
+
 
 CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
-coef(summary(CregressionLOW)) %>% kable ()
+
 
 CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+
+```
+
+```{r}
+coef(summary(Cregression)) %>% kable ()
+
+coef(summary(CregressionLOW)) %>% kable ()
+
 coef(summary(CregressionHIGH)) %>% kable ()
 ```
 

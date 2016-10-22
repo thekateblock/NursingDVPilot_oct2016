@@ -337,6 +337,15 @@ predicting rank
 
 ``` r
 Cregression <- lm (rank_nurse ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+
+
+CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+
+
+CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+```
+
+``` r
 coef(summary(Cregression)) %>% kable ()
 ```
 
@@ -348,7 +357,6 @@ coef(summary(Cregression)) %>% kable ()
 | scale(rate\_men\_nursing):scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
 
 ``` r
-CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
 coef(summary(CregressionLOW)) %>% kable ()
 ```
 
@@ -360,7 +368,6 @@ coef(summary(CregressionLOW)) %>% kable ()
 | rate\_men\_nursingLOW:scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
 
 ``` r
-CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
 coef(summary(CregressionHIGH)) %>% kable ()
 ```
 
