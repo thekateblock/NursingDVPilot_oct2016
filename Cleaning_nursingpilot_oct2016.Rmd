@@ -9,3 +9,106 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r, message=FALSE}
+library (tidyverse)
+library (ggplot2)
+library(knitr)
+```
+
+# 0.1) renaming variables so they make sense and making composite variables
+
+* First, I read in the data
+```{r, message=FALSE}
+rawdata <- read_csv ("/Users/KatharinaBlock/Desktop/Git_REPOS/NursingDVPilot_oct2016/Nursing2pilot.csv")
+
+str (rawdata)
+```
+
+* Then I ranmed the variables so they make more intuitive sense, having things named V2 does not make sense
+
+```{r}
+raw_renamed <- rawdata %>% rename(ID= V1, start= V8, Ra_ID=Q2,
+                   end= V9, log= Q93,
+                   helping = Q77_1, status=Q77_2, working_people=Q77_3,
+                   achievement=Q77_4, attenting= Q77_5, self_promo= Q77_6, connection=Q77_7,
+                   power=Q77_8, intimacy= Q77_9, caring=Q77_10,
+                   independence=Q77_11, serving_humanity=Q77_12, competition=Q77_13,
+                   recognition=Q77_14, rate_men_nursing=Q75,male_nurse_positive=Q77,
+                   interest_nursing=Q76, enjoy_nursing=Q74, imagine_nursing=Q70, 
+                   rank_lawclerk= Q78_1, rank_ITassistant=Q78_2, rank_softwareENG=Q78_3,
+                   rank_nurse=Q78_4,rank_teacher=Q78_5,rank_immigrationofficer=Q78_6,
+                   rank_businessanalyst=Q78_7, rank_accountant=Q78_8,rank_insurance_agent=Q78_9,
+                   rank_counselor=Q78_10, rank_pharmacist=Q78_11, rank_graphicdesigner=Q78_12,
+                   rank_HRmanager=Q78_13,rank_copywriter=Q78_14,rank_curator=Q78_15,
+                   fit1=Q96_4,fit2=Q96_8, fit3=Q96_9,fit4=Q96_10, fit5=Q96_11,fit6=Q96_12,
+                   nursing_overlap=Q102, gender=Q17,
+                   when_learn_english=Q11,year_standing=Q13,
+                   ethnicity=Q15,ethnicity_other=Q15_TEXT,faculty=Q19,
+                   major=Q84,sexual_orientation=Q85,sexual_other=Q85_TEXT,
+                   what_about=Q18)
+                   
+# Drop Q80, Q95, Q94, =Q98, Q101, which are not really variables at all
+raw_renamed <- raw_renamed %>% select(-Q80, -Q95, -Q94, -Q98, -Q101)
+  
+```
+
+*then i make composite variables
+
+```{r}
+raw_renamed <- 
+  raw_renamed %>% 
+  mutate(communal_values= (helping+working_people+attenting+connection+caring+serving_humanity)/6,
+         agentic_values= (status+achievement+self_promo+power+intimacy+independence+competition+recognition)/7, fit_nursing= (fit1+fit2+fit3+fit4+fit5+fit6)/6, interest_comp = (interest_nursing+enjoy_nursing+imagine_nursing)/3)
+
+```
+
+* Dropping some more variables: I drop the individual communal and agentic values here bc we can be quite confident in those, as we have previously used them.
+
+```{r}
+CLEANdata <- raw_renamed %>% select (-V10, -start, -helping, -working_people, -attenting, -connection, -caring,-serving_humanity, - status, -achievement, -self_promo, -power, -intimacy, -independence, -competition, -recognition)
+
+# looks better now
+str (CLEANdata)
+```
+
+# 0.2) Revaluing ethnicity to get bigger groups.
+* I choose to revalue my ethinicity factor here, I have to many groups,
+
+```{r}
+# so here you can see there is a lot of ethnicity groups
+CLEANdata %>% select (ethnicity) %>% 
+                      group_by(ethnicity) %>% summarize(particicipants=n()) %>% kable
+
+CLEANdata$ethcode <- plyr::revalue(CLEANdata$ethnicity, c("East Asian or Pacific Islander"="Asian","South Asian (e.g. India)"="Asian", "White/Caucasian"="White", "Black/African American/Canadian"="Other", "Hispanic/Latino"="Other","Middle Eastern"="Other","More than one"="Other","Native Canadian/Aboriginal/Native American"="Other", "Other (please specify)"="Other"))
+
+CLEANdata %>% 
+  group_by(ethcode) %>% select (ethnicity) %>% 
+  summarize(particicipants=n()) %>% kable
+```
+
+# 1) Exclusions
+
+I decided to drop those who identify as **anything other than heterosexual** and* **didn't identify as male or female**
+    
+```{r}
+#make this a factor instead of a character
+CLEANdata$sexual_orientation <- as.factor(CLEANdata$sexual_orientation)
+
+str(CLEANdata$sexual_orientation)
+
+CLEAN_hetero <- CLEANdata %>% 
+  filter(sexual_orientation != "Mostly Homosexual/Gay/Lesbian" & 
+           sexual_orientation != "Bisexual" & gender != "Neither reflects my gender identity")
+
+# this dropped a total of 31 participants!
+```
+
+# 2) Write Clean data
+
+I then write the clean data to file so I can use that one for my next script
+
+```{r}
+write_csv(CLEAN_hetero,"/Users/KatharinaBlock/Desktop/Git_REPOS/NursingDVPilot_oct2016/Nursing2pilot_clean_hetero.csv")
+```
+
