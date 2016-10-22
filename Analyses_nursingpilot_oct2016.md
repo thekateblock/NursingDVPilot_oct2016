@@ -256,81 +256,105 @@ predicting Fit
 
 ``` r
 regression <- lm (fit_nursing ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
-coef(summary(regression)) %>% kable ()
+coef(summary(regression)) 
 ```
 
-|                                                   |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|---------------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                       |   4.2113611|   0.1182968|  35.5999709|    0.0000000|
-| scale(rate\_men\_nursing)                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
-| scale(communal\_values)                           |   0.3472495|   0.1218968|   2.8487164|    0.0053816|
-| scale(rate\_men\_nursing):scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+    ##                                                   Estimate Std. Error
+    ## (Intercept)                                     4.21136108  0.1182968
+    ## scale(rate_men_nursing)                         0.34917562  0.1227859
+    ## scale(communal_values)                          0.34724951  0.1218968
+    ## scale(rate_men_nursing):scale(communal_values) -0.09981986  0.1137060
+    ##                                                   t value     Pr(>|t|)
+    ## (Intercept)                                    35.5999709 9.779902e-57
+    ## scale(rate_men_nursing)                         2.8437773 5.458942e-03
+    ## scale(communal_values)                          2.8487164 5.381579e-03
+    ## scale(rate_men_nursing):scale(communal_values) -0.8778767 3.822254e-01
 
 ``` r
 MENONLY$rate_men_nursingLOW <- scale(MENONLY$rate_men_nursing) + 1
 MENONLY$rate_men_nursingHIGH <- scale(MENONLY$rate_men_nursing) - 1
 
 regressionLOW <- lm (fit_nursing ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
-coef(summary(regressionLOW)) %>% kable ()
+coef(summary(regressionLOW)) 
 ```
 
-|                                               |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|-----------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                   |   3.8621855|   0.1656561|  23.3144843|    0.0000000|
-| rate\_men\_nursingLOW                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
-| scale(communal\_values)                       |   0.4470694|   0.1485276|   3.0100088|    0.0033456|
-| rate\_men\_nursingLOW:scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+    ##                                               Estimate Std. Error
+    ## (Intercept)                                 3.86218546  0.1656561
+    ## rate_men_nursingLOW                         0.34917562  0.1227859
+    ## scale(communal_values)                      0.44706937  0.1485276
+    ## rate_men_nursingLOW:scale(communal_values) -0.09981986  0.1137060
+    ##                                               t value     Pr(>|t|)
+    ## (Intercept)                                23.3144843 4.372762e-41
+    ## rate_men_nursingLOW                         2.8437773 5.458942e-03
+    ## scale(communal_values)                      3.0100088 3.345643e-03
+    ## rate_men_nursingLOW:scale(communal_values) -0.8778767 3.822254e-01
 
 ``` r
 regressionHIGH <- lm (fit_nursing ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
-coef(summary(regressionHIGH)) %>% kable ()
+coef(summary(regressionHIGH)) 
 ```
 
-|                                                |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|------------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                    |   4.5605367|   0.1752114|  26.0287615|    0.0000000|
-| rate\_men\_nursingHIGH                         |   0.3491756|   0.1227859|   2.8437773|    0.0054589|
-| scale(communal\_values)                        |   0.2474296|   0.1830720|   1.3515431|    0.1797310|
-| rate\_men\_nursingHIGH:scale(communal\_values) |  -0.0998199|   0.1137060|  -0.8778767|    0.3822254|
+    ##                                                Estimate Std. Error
+    ## (Intercept)                                  4.56053670  0.1752114
+    ## rate_men_nursingHIGH                         0.34917562  0.1227859
+    ## scale(communal_values)                       0.24742965  0.1830720
+    ## rate_men_nursingHIGH:scale(communal_values) -0.09981986  0.1137060
+    ##                                                t value     Pr(>|t|)
+    ## (Intercept)                                 26.0287615 5.088539e-45
+    ## rate_men_nursingHIGH                         2.8437773 5.458942e-03
+    ## scale(communal_values)                       1.3515431 1.797310e-01
+    ## rate_men_nursingHIGH:scale(communal_values) -0.8778767 3.822254e-01
 
 predicting interest
 ===================
 
 ``` r
 Bregression <- lm (interest_comp ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
-coef(summary(Bregression)) %>% kable ()
+coef(summary(Bregression))
 ```
 
-|                                                   |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|---------------------------------------------------|----------:|-----------:|-----------:|------------:|
-| (Intercept)                                       |  3.0196266|   0.1416836|  21.3124572|    0.0000000|
-| scale(rate\_men\_nursing)                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
-| scale(communal\_values)                           |  0.4130944|   0.1459954|   2.8295017|    0.0056883|
-| scale(rate\_men\_nursing):scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+    ##                                                  Estimate Std. Error
+    ## (Intercept)                                    3.01962661  0.1416836
+    ## scale(rate_men_nursing)                        0.25337357  0.1470602
+    ## scale(communal_values)                         0.41309436  0.1459954
+    ## scale(rate_men_nursing):scale(communal_values) 0.08467938  0.1361853
+    ##                                                   t value     Pr(>|t|)
+    ## (Intercept)                                    21.3124572 5.703382e-38
+    ## scale(rate_men_nursing)                         1.7229240 8.815594e-02
+    ## scale(communal_values)                          2.8295017 5.688318e-03
+    ## scale(rate_men_nursing):scale(communal_values)  0.6217952 5.355659e-01
 
 ``` r
 BregressionLOW <- lm (interest_comp ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
-coef(summary(BregressionLOW)) %>% kable ()
+coef(summary(BregressionLOW)) 
 ```
 
-|                                               |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|-----------------------------------------------|----------:|-----------:|-----------:|------------:|
-| (Intercept)                                   |  2.7662530|   0.1984057|  13.9424055|    0.0000000|
-| rate\_men\_nursingLOW                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
-| scale(communal\_values)                       |  0.3284150|   0.1778910|   1.8461583|    0.0679831|
-| rate\_men\_nursingLOW:scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+    ##                                              Estimate Std. Error
+    ## (Intercept)                                2.76625303  0.1984057
+    ## rate_men_nursingLOW                        0.25337357  0.1470602
+    ## scale(communal_values)                     0.32841498  0.1778910
+    ## rate_men_nursingLOW:scale(communal_values) 0.08467938  0.1361853
+    ##                                               t value     Pr(>|t|)
+    ## (Intercept)                                13.9424055 1.041200e-24
+    ## rate_men_nursingLOW                         1.7229240 8.815594e-02
+    ## scale(communal_values)                      1.8461583 6.798308e-02
+    ## rate_men_nursingLOW:scale(communal_values)  0.6217952 5.355659e-01
 
 ``` r
 BregressionHIGH <- lm (interest_comp ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
-coef(summary(BregressionHIGH)) %>% kable ()
+coef(summary(BregressionHIGH))
 ```
 
-|                                                |   Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|------------------------------------------------|----------:|-----------:|-----------:|------------:|
-| (Intercept)                                    |  3.2730002|   0.2098502|  15.5968428|    0.0000000|
-| rate\_men\_nursingHIGH                         |  0.2533736|   0.1470602|   1.7229240|    0.0881559|
-| scale(communal\_values)                        |  0.4977737|   0.2192647|   2.2701955|    0.0254556|
-| rate\_men\_nursingHIGH:scale(communal\_values) |  0.0846794|   0.1361853|   0.6217952|    0.5355659|
+    ##                                               Estimate Std. Error
+    ## (Intercept)                                 3.27300018  0.2098502
+    ## rate_men_nursingHIGH                        0.25337357  0.1470602
+    ## scale(communal_values)                      0.49777374  0.2192647
+    ## rate_men_nursingHIGH:scale(communal_values) 0.08467938  0.1361853
+    ##                                                t value     Pr(>|t|)
+    ## (Intercept)                                 15.5968428 6.083691e-28
+    ## rate_men_nursingHIGH                         1.7229240 8.815594e-02
+    ## scale(communal_values)                       2.2701955 2.545564e-02
+    ## rate_men_nursingHIGH:scale(communal_values)  0.6217952 5.355659e-01
 
 predicting rank
 ===============
@@ -346,34 +370,46 @@ CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values),
 ```
 
 ``` r
-coef(summary(Cregression)) %>% kable ()
+coef(summary(Cregression)) 
 ```
 
-|                                                   |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|---------------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                       |   7.8000535|   0.3964212|  19.6761783|    0.0000000|
-| scale(rate\_men\_nursing)                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
-| scale(communal\_values)                           |  -1.1747209|   0.4084853|  -2.8757974|    0.0049750|
-| scale(rate\_men\_nursing):scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
+    ##                                                  Estimate Std. Error
+    ## (Intercept)                                     7.8000535  0.3964212
+    ## scale(rate_men_nursing)                        -0.3090826  0.4114645
+    ## scale(communal_values)                         -1.1747209  0.4084853
+    ## scale(rate_men_nursing):scale(communal_values)  0.2385514  0.3810372
+    ##                                                   t value     Pr(>|t|)
+    ## (Intercept)                                    19.6761783 2.812727e-35
+    ## scale(rate_men_nursing)                        -0.7511769 4.544030e-01
+    ## scale(communal_values)                         -2.8757974 4.974981e-03
+    ## scale(rate_men_nursing):scale(communal_values)  0.6260580 5.327783e-01
 
 ``` r
-coef(summary(CregressionLOW)) %>% kable ()
+coef(summary(CregressionLOW))
 ```
 
-|                                               |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|-----------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                   |   8.1091360|   0.5551257|  14.6077484|    0.0000000|
-| rate\_men\_nursingLOW                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
-| scale(communal\_values)                       |  -1.4132723|   0.4977269|  -2.8394532|    0.0055275|
-| rate\_men\_nursingLOW:scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
+    ##                                              Estimate Std. Error
+    ## (Intercept)                                 8.1091360  0.5551257
+    ## rate_men_nursingLOW                        -0.3090826  0.4114645
+    ## scale(communal_values)                     -1.4132723  0.4977269
+    ## rate_men_nursingLOW:scale(communal_values)  0.2385514  0.3810372
+    ##                                               t value     Pr(>|t|)
+    ## (Intercept)                                14.6077484 5.009362e-26
+    ## rate_men_nursingLOW                        -0.7511769 4.544030e-01
+    ## scale(communal_values)                     -2.8394532 5.527510e-03
+    ## rate_men_nursingLOW:scale(communal_values)  0.6260580 5.327783e-01
 
 ``` r
-coef(summary(CregressionHIGH)) %>% kable ()
+coef(summary(CregressionHIGH)) 
 ```
 
-|                                                |    Estimate|  Std. Error|     t value|  Pr(&gt;|t|)|
-|------------------------------------------------|-----------:|-----------:|-----------:|------------:|
-| (Intercept)                                    |   7.4909709|   0.5871465|  12.7582663|    0.0000000|
-| rate\_men\_nursingHIGH                         |  -0.3090826|   0.4114645|  -0.7511769|    0.4544030|
-| scale(communal\_values)                        |  -0.9361695|   0.6134877|  -1.5259794|    0.1303375|
-| rate\_men\_nursingHIGH:scale(communal\_values) |   0.2385514|   0.3810372|   0.6260580|    0.5327783|
+    ##                                               Estimate Std. Error
+    ## (Intercept)                                  7.4909709  0.5871465
+    ## rate_men_nursingHIGH                        -0.3090826  0.4114645
+    ## scale(communal_values)                      -0.9361695  0.6134877
+    ## rate_men_nursingHIGH:scale(communal_values)  0.2385514  0.3810372
+    ##                                                t value     Pr(>|t|)
+    ## (Intercept)                                 12.7582663 2.613676e-22
+    ## rate_men_nursingHIGH                        -0.7511769 4.544030e-01
+    ## scale(communal_values)                      -1.5259794 1.303375e-01
+    ## rate_men_nursingHIGH:scale(communal_values)  0.6260580 5.327783e-01

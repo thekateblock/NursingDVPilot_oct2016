@@ -157,16 +157,16 @@ flattenCorrMatrix(corrs4$r, corrs4$P) %>% kable()
 ## predicting Fit
 ```{r}
 regression <- lm (fit_nursing ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
-coef(summary(regression)) %>% kable ()
+coef(summary(regression)) 
 
 MENONLY$rate_men_nursingLOW <- scale(MENONLY$rate_men_nursing) + 1
 MENONLY$rate_men_nursingHIGH <- scale(MENONLY$rate_men_nursing) - 1
 
 regressionLOW <- lm (fit_nursing ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
-coef(summary(regressionLOW)) %>% kable ()
+coef(summary(regressionLOW)) 
 
 regressionHIGH <- lm (fit_nursing ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
-coef(summary(regressionHIGH)) %>% kable ()
+coef(summary(regressionHIGH)) 
 ```
 
 # predicting interest
@@ -174,13 +174,13 @@ coef(summary(regressionHIGH)) %>% kable ()
 ```{r}
 
 Bregression <- lm (interest_comp ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
-coef(summary(Bregression)) %>% kable ()
+coef(summary(Bregression))
 
 BregressionLOW <- lm (interest_comp ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
-coef(summary(BregressionLOW)) %>% kable ()
+coef(summary(BregressionLOW)) 
 
 BregressionHIGH <- lm (interest_comp ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
-coef(summary(BregressionHIGH)) %>% kable ()
+coef(summary(BregressionHIGH))
 ```
 
 # predicting rank 
@@ -197,10 +197,10 @@ CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values),
 ```
 
 ```{r}
-coef(summary(Cregression)) %>% kable ()
+coef(summary(Cregression)) 
 
-coef(summary(CregressionLOW)) %>% kable ()
+coef(summary(CregressionLOW))
 
-coef(summary(CregressionHIGH)) %>% kable ()
+coef(summary(CregressionHIGH)) 
 ```
 
