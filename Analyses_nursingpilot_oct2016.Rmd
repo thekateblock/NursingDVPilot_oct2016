@@ -31,7 +31,7 @@ library(Hmisc)
 * Ran interactions for men predicting interest and fit from "rate of men moving into nursing" * "communal values"
     + Seems like both independently have an effect
     + interactions are small-ish and ns. They are in the wrong direction for FIT?
-    + SOOOOO... maybe we should expect an additive effect rather than an interaction.
+    + SOOOOO... maybe we should expect an additive effect rather than an interaction????
 
 #reading file
 
@@ -172,6 +172,7 @@ coef(summary(regressionHIGH)) %>% kable ()
 # predicting interest
 
 ```{r}
+
 Bregression <- lm (interest_comp ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
 coef(summary(Bregression)) %>% kable ()
 
@@ -184,6 +185,7 @@ coef(summary(BregressionHIGH)) %>% kable ()
 
 # predicting rank 
 ```{r}
+
 Cregression <- lm (rank_nurse ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
 coef(summary(Cregression)) %>% kable ()
 

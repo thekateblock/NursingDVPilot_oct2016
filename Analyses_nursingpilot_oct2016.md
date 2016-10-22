@@ -26,7 +26,7 @@ SUMMARY
 -   Ran interactions for men predicting interest and fit from "rate of men moving into nursing" \* "communal values"
     -   Seems like both independently have an effect
     -   interactions are small-ish and ns. They are in the wrong direction for FIT?
-    -   SOOOOO... maybe we should expect an additive effect rather than an interaction.
+    -   SOOOOO... maybe we should expect an additive effect rather than an interaction????
 
 reading file
 ============
