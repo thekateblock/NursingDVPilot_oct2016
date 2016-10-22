@@ -85,6 +85,10 @@ CLEANdata$ethcode <- plyr::revalue(CLEANdata$ethnicity, c("East Asian or Pacific
 CLEANdata %>% 
   group_by(ethcode) %>% select (ethnicity) %>% 
   summarize(particicipants=n()) %>% kable
+
+CLEANdata$gender_num <- plyr::revalue(CLEANdata$gender, c("Male"=0, "Female"=1, "Neither reflects my gender identity"=3))
+CLEANdata$gender_num <- as.numeric(CLEANdata$gender_num)
+str(CLEANdata$gender_num)
 ```
 
 # 1) Exclusions

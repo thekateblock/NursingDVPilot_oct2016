@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library (tidyverse)
 library (ggplot2)
 library(knitr)
+library(Hmisc)
 ```
 
 ## reading file
@@ -40,8 +41,90 @@ pretty <- M2 %>% select (-id) %>%
 pretty %>% arrange (desc(Female)) %>% kable 
 ```
 
-Correlation Matrix R
-```{r}
+# Correlations
 
+## Correlations for FIT measure:
+
+LOOKING GREAT!
+
+```{r}
+fitmeasure <- CLEAN_hetero[, c("fit1","fit2","fit3", "fit4", "fit5", "fit6")]
+corrs1 <- rcorr (as.matrix(fitmeasure))
+corrs1$r %>% kable ()
+corrs1$P %>% kable ()
 ```
+
+
+## Correlations for INTEREST Measure:
+
+LOOKING GREAT!
+
+```{r}
+interestmeasure <- CLEAN_hetero[, c("interest_nursing","enjoy_nursing","imagine_nursing")]
+corrs2 <- rcorr (as.matrix(fitmeasure))
+corrs2$r %>% kable ()
+corrs2$P %>% kable ()
+```
+
+
+## Overall correlation (MEN AND WOMEN)
+
+I display these in different ways
+NOTES:
+
+* Communal values are related to all FIT, interest and rank. But MORE to fit and rank than interest.
+* We get gender differences in all three FIT, interest and rank
+* interestingly we don't get gender differences in communal values???
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+
+library("PerformanceAnalytics")
+my_data <- CLEAN_hetero[, c("gender_num","rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp")]
+
+corrs3 <- rcorr (as.matrix(my_data))
+
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+corrs3$r %>% kable ()
+corrs3$P %>% kable ()
+
+chart.Correlation(my_data, histogram=TRUE, pch=19)
+
+flattenCorrMatrix(corrs3$r, corrs3$P) %>% kable()
+```
+
+# Correlations JUST FOR MEN!
+
+```{r, warning=FALSE, echo=FALSE}
+MENONLY <- CLEAN_hetero %>% filter(gender == "Male") 
+
+my_dataMEN <- MENONLY[, c("rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp")]
+
+corrs4 <- rcorr (as.matrix(my_dataMEN))
+
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+corrs4$r %>% kable ()
+corrs4$P %>% kable ()
+
+chart.Correlation(my_dataMEN, histogram=TRUE, pch=19)
+
+flattenCorrMatrix(corrs4$r, corrs4$P) %>% kable()
+```
+
+
 
