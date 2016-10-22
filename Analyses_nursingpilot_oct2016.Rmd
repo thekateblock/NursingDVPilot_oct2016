@@ -9,10 +9,39 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, message=FALSE}
+library (tidyverse)
+library (ggplot2)
+library(knitr)
+```
+
 ## reading file
 
-```{r}
+```{r, message=FALSE}
 CLEAN_hetero <- read_csv("/Users/KatharinaBlock/Desktop/Git_REPOS/NursingDVPilot_oct2016/Nursing2pilot_clean_hetero.csv")
+```
+
+Making a mean overview
+```{r, echo=FALSE, warning=FALSE}
+Mean_overview <- CLEAN_hetero %>% group_by(gender) %>% summarise(M_rate = mean(rate_men_nursing), Sd_rate= sd(rate_men_nursing), M_positive= mean(male_nurse_positive), Sd_positive=sd(male_nurse_positive), M_communal = mean(communal_values),Sd_communal = sd(communal_values), M_agentic= mean(agentic_values),  Sd_agentic= sd(agentic_values), M_interest = mean(interest_comp), Sd_interest = sd (interest_comp), M_rankNurse = mean(rank_nurse), Sd_rankNurse = sd (rank_nurse), M_SNoverlap = mean(nursing_overlap), Sd_SNoverlap = sd(nursing_overlap), M_fit= mean(fit_nursing), Sd_fit= sd(fit_nursing), participants = n ())
+
+M2 <- reshape(Mean_overview, 
+  varying = c("M_rate","Sd_rate", "M_positive", "Sd_positive", "M_communal", "Sd_communal", "M_agentic", "Sd_agentic", "M_interest", "Sd_interest", "M_rankNurse", "Sd_rankNurse", "M_SNoverlap", "Sd_SNoverlap", "M_fit", "Sd_fit", "participants"), 
+  v.names = "Score",
+  timevar = "vars", 
+  times = c("M_rate","Sd_rate", "M_positive", "Sd_positive", "M_communal", "Sd_communal", "M_agentic", "Sd_agentic", "M_interest", "Sd_interest", "M_rankNurse", "Sd_rankNurse", "M_SNoverlap", "Sd_SNoverlap", "M_fit", "Sd_fit", "participants"), 
+  new.row.names = 1:1000,
+  direction = "long") %>% 
+  filter (gender != "Neither reflects my gender identity")
+
+pretty <- M2 %>% select (-id) %>% 
+  spread(gender, Score)
+
+pretty %>% arrange (desc(Female)) %>% kable 
+```
+
+Correlation Matrix R
+```{r}
 
 ```
 
