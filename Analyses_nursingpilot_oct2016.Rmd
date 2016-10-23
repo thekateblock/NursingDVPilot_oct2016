@@ -20,14 +20,15 @@ library(Hmisc)
 
 * Sample of 192 men and women after selecting only heterosexual people
 * GOAL: select DVS, refine predictions
-* In this pilot, we tried out 3 measures of "interest"
+* In this pilot, we tried out 4 measures of "interest"
     + A self-report fit measure we made up (6 items)
     + A 3-item interest measure we have use previously
     + A measure of ranking nursing against other jobs
+    + measure of self-nursing overlap
 * The New FIT measure shows great intercorrelations, so all items seem reliable 
-* Fit, interest and Rank of nursing show predicted gender differences
-* All three relate to communal values
-* For men, Fit and interest but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure
+* Fit, interest, overlap and Rank of nursing show predicted gender differences
+* All 4 relate to communal values
+* For men, Fit, interest, overlap,  but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure then!!!
 * Ran interactions for men predicting interest and fit from "rate of men moving into nursing" * "communal values"
     + Seems like both independently have an effect
     + interactions are small-ish and ns. They are in the wrong direction for FIT?
@@ -96,7 +97,7 @@ NOTES:
 ```{r, warning=FALSE, message=FALSE, echo=FALSE}
 
 library("PerformanceAnalytics")
-my_data <- CLEAN_hetero[, c("gender_num","rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp")]
+my_data <- CLEAN_hetero[, c("gender_num","rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp", "nursing_overlap")]
 
 corrs3 <- rcorr (as.matrix(my_data))
 
@@ -127,7 +128,7 @@ flattenCorrMatrix(corrs3$r, corrs3$P) %>% kable()
 ```{r, warning=FALSE, echo=FALSE}
 MENONLY <- CLEAN_hetero %>% filter(gender == "Male") 
 
-my_dataMEN <- MENONLY[, c("rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp")]
+my_dataMEN <- MENONLY[, c("rate_men_nursing","male_nurse_positive","communal_values", "agentic_values", "rank_nurse", "fit_nursing", "interest_comp", "nursing_overlap")]
 
 corrs4 <- rcorr (as.matrix(my_dataMEN))
 
@@ -183,6 +184,26 @@ BregressionHIGH <- lm (interest_comp ~ rate_men_nursingHIGH*scale(communal_value
 coef(summary(BregressionHIGH))
 ```
 
+#self-nursing overlap
+
+```{r}
+Dregression <- lm (nursing_overlap ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+
+
+DregressionLOW <- lm (nursing_overlap ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+
+
+DregressionHIGH <- lm (nursing_overlap ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+
+coef(summary(Dregression)) 
+
+coef(summary(DregressionLOW))
+
+coef(summary(DregressionHIGH)) 
+
+```
+
+
 # predicting rank 
 ```{r}
 
@@ -193,6 +214,8 @@ CregressionLOW <- lm (rank_nurse ~ rate_men_nursingLOW*scale(communal_values), d
 
 
 CregressionHIGH <- lm (rank_nurse ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+
+
 
 ```
 

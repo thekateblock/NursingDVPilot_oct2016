@@ -15,14 +15,15 @@ SUMMARY
 
 -   Sample of 192 men and women after selecting only heterosexual people
 -   GOAL: select DVS, refine predictions
--   In this pilot, we tried out 3 measures of "interest"
+-   In this pilot, we tried out 4 measures of "interest"
     -   A self-report fit measure we made up (6 items)
     -   A 3-item interest measure we have use previously
     -   A measure of ranking nursing against other jobs
+    -   measure of self-nursing overlap
 -   The New FIT measure shows great intercorrelations, so all items seem reliable
--   Fit, interest and Rank of nursing show predicted gender differences
--   All three relate to communal values
--   For men, Fit and interest but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure
+-   Fit, interest, overlap and Rank of nursing show predicted gender differences
+-   All 4 relate to communal values
+-   For men, Fit, interest, overlap, but not rank relate significantly to rate of men moving into nursing, maybe we should not select rank as a measure then!!!
 -   Ran interactions for men predicting interest and fit from "rate of men moving into nursing" \* "communal values"
     -   Seems like both independently have an effect
     -   interactions are small-ish and ns. They are in the wrong direction for FIT?
@@ -135,27 +136,29 @@ I display these in different ways NOTES:
 -   We get gender differences in all three FIT, interest and rank
 -   interestingly we don't get gender differences in communal values???
 
-    |                    gen| der\_num rat | e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
-    |----------------------:|--------------|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
-    |            gender\_num| 1.0000000    | -0.0612814          | 0.0472682              | 0.0965309         | -0.1084806       | -0.2380275   | 0.2219109     | 0.2575104   |
-    |     rate\_men\_nursing| -0.0612814   | 1.0000000           | 0.2205480              | 0.1395007         | 0.1081959        | -0.0399454   | 0.1624604     | 0.1250158   |
-    |  male\_nurse\_positive| 0.0472682    | 0.2205480           | 1.0000000              | 0.1727595         | 0.0791551        | -0.0831982   | 0.1671681     | 0.0872488   |
-    |       communal\_values| 0.0965309    | 0.1395007           | 0.1727595              | 1.0000000         | 0.3701255        | -0.3568348   | 0.4482102     | 0.2664495   |
-    |        agentic\_values| -0.1084806   | 0.1081959           | 0.0791551              | 0.3701255         | 1.0000000        | 0.1101166    | 0.0097131     | -0.0649606  |
-    |            rank\_nurse| -0.2380275   | -0.0399454          | -0.0831982             | -0.3568348        | 0.1101166        | 1.0000000    | -0.6184070    | -0.6514257  |
-    |           fit\_nursing| 0.2219109    | 0.1624604           | 0.1671681              | 0.4482102         | 0.0097131        | -0.6184070   | 1.0000000     | 0.6490603   |
-    |         interest\_comp| 0.2575104    | 0.1250158           | 0.0872488              | 0.2664495         | -0.0649606       | -0.6514257   | 0.6490603     | 1.0000000   |
+    |                    gen| der\_num rat | e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp nur | sing\_overlap |
+    |----------------------:|--------------|---------------------|------------------------|-------------------|------------------|--------------|---------------|-----------------|:--------------|
+    |            gender\_num| 1.0000000    | -0.0612814          | 0.0472682              | 0.0965309         | -0.1084806       | -0.2380275   | 0.2219109     | 0.2575104       | 0.2491856     |
+    |     rate\_men\_nursing| -0.0612814   | 1.0000000           | 0.2205480              | 0.1395007         | 0.1081959        | -0.0399454   | 0.1624604     | 0.1250158       | 0.1450112     |
+    |  male\_nurse\_positive| 0.0472682    | 0.2205480           | 1.0000000              | 0.1727595         | 0.0791551        | -0.0831982   | 0.1671681     | 0.0872488       | 0.0888332     |
+    |       communal\_values| 0.0965309    | 0.1395007           | 0.1727595              | 1.0000000         | 0.3701255        | -0.3568348   | 0.4482102     | 0.2664495       | 0.2499670     |
+    |        agentic\_values| -0.1084806   | 0.1081959           | 0.0791551              | 0.3701255         | 1.0000000        | 0.1101166    | 0.0097131     | -0.0649606      | -0.0282813    |
+    |            rank\_nurse| -0.2380275   | -0.0399454          | -0.0831982             | -0.3568348        | 0.1101166        | 1.0000000    | -0.6184070    | -0.6514257      | -0.5873606    |
+    |           fit\_nursing| 0.2219109    | 0.1624604           | 0.1671681              | 0.4482102         | 0.0097131        | -0.6184070   | 1.0000000     | 0.6490603       | 0.6056745     |
+    |         interest\_comp| 0.2575104    | 0.1250158           | 0.0872488              | 0.2664495         | -0.0649606       | -0.6514257   | 0.6490603     | 1.0000000       | 0.6395105     |
+    |       nursing\_overlap| 0.2491856    | 0.1450112           | 0.0888332              | 0.2499670         | -0.0282813       | -0.5873606   | 0.6056745     | 0.6395105       | 1.0000000     |
 
-    |                    gen| der\_num rat | e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
-    |----------------------:|--------------|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
-    |            gender\_num| NA           | 0.3984520           | 0.5150110              | 0.1828769         | 0.1341957        | 0.0008855    | 0.0019783     | 0.0003111   |
-    |     rate\_men\_nursing| 0.3984520    | NA                  | 0.0021122              | 0.0536313         | 0.1352265        | 0.5822477    | 0.0243605     | 0.0840343   |
-    |  male\_nurse\_positive| 0.5150110    | 0.0021122           | NA                     | 0.0165643         | 0.2751163        | 0.2512614    | 0.0204735     | 0.2288384   |
-    |       communal\_values| 0.1828769    | 0.0536313           | 0.0165643              | NA                | 0.0000001        | 0.0000004    | 0.0000000     | 0.0001872   |
-    |        agentic\_values| 0.1341957    | 0.1352265           | 0.2751163              | 0.0000001         | NA               | 0.1283894    | 0.8936291     | 0.3706866   |
-    |            rank\_nurse| 0.0008855    | 0.5822477           | 0.2512614              | 0.0000004         | 0.1283894        | NA           | 0.0000000     | 0.0000000   |
-    |           fit\_nursing| 0.0019783    | 0.0243605           | 0.0204735              | 0.0000000         | 0.8936291        | 0.0000000    | NA            | 0.0000000   |
-    |         interest\_comp| 0.0003111    | 0.0840343           | 0.2288384              | 0.0001872         | 0.3706866        | 0.0000000    | 0.0000000     | NA          |
+    |                    gen| der\_num rat | e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp nur | sing\_overlap |
+    |----------------------:|--------------|---------------------|------------------------|-------------------|------------------|--------------|---------------|-----------------|:--------------|
+    |            gender\_num| NA           | 0.3984520           | 0.5150110              | 0.1828769         | 0.1341957        | 0.0008855    | 0.0019783     | 0.0003111       | 0.0004914     |
+    |     rate\_men\_nursing| 0.3984520    | NA                  | 0.0021122              | 0.0536313         | 0.1352265        | 0.5822477    | 0.0243605     | 0.0840343       | 0.0447674     |
+    |  male\_nurse\_positive| 0.5150110    | 0.0021122           | NA                     | 0.0165643         | 0.2751163        | 0.2512614    | 0.0204735     | 0.2288384       | 0.2204640     |
+    |       communal\_values| 0.1828769    | 0.0536313           | 0.0165643              | NA                | 0.0000001        | 0.0000004    | 0.0000000     | 0.0001872       | 0.0004710     |
+    |        agentic\_values| 0.1341957    | 0.1352265           | 0.2751163              | 0.0000001         | NA               | 0.1283894    | 0.8936291     | 0.3706866       | 0.6969829     |
+    |            rank\_nurse| 0.0008855    | 0.5822477           | 0.2512614              | 0.0000004         | 0.1283894        | NA           | 0.0000000     | 0.0000000       | 0.0000000     |
+    |           fit\_nursing| 0.0019783    | 0.0243605           | 0.0204735              | 0.0000000         | 0.8936291        | 0.0000000    | NA            | 0.0000000       | 0.0000000     |
+    |         interest\_comp| 0.0003111    | 0.0840343           | 0.2288384              | 0.0001872         | 0.3706866        | 0.0000000    | 0.0000000     | NA              | 0.0000000     |
+    |       nursing\_overlap| 0.0004914    | 0.0447674           | 0.2204640              | 0.0004710         | 0.6969829        | 0.0000000    | 0.0000000     | 0.0000000       | NA            |
 
 ![](Analyses_nursingpilot_oct2016_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
@@ -189,6 +192,14 @@ I display these in different ways NOTES:
 | agentic\_values       | interest\_comp        |  -0.0649606|  0.3706866|
 | rank\_nurse           | interest\_comp        |  -0.6514257|  0.0000000|
 | fit\_nursing          | interest\_comp        |   0.6490603|  0.0000000|
+| gender\_num           | nursing\_overlap      |   0.2491856|  0.0004914|
+| rate\_men\_nursing    | nursing\_overlap      |   0.1450112|  0.0447674|
+| male\_nurse\_positive | nursing\_overlap      |   0.0888332|  0.2204640|
+| communal\_values      | nursing\_overlap      |   0.2499670|  0.0004710|
+| agentic\_values       | nursing\_overlap      |  -0.0282813|  0.6969829|
+| rank\_nurse           | nursing\_overlap      |  -0.5873606|  0.0000000|
+| fit\_nursing          | nursing\_overlap      |   0.6056745|  0.0000000|
+| interest\_comp        | nursing\_overlap      |   0.6395105|  0.0000000|
 
 Correlations JUST FOR MEN!
 ==========================
@@ -198,25 +209,27 @@ Correlations JUST FOR MEN!
 -   Seems like RANK won't work well
 -   How positive male nurses are seen is probably not a great measure, it doens't really correlate with things!
 
-    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
-    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
-    |     rate\_men\_nursing| 1.0000000           | 0.2326970              | 0.2478697         | 0.0687668        | -0.1379426   | 0.3303507     | 0.2565778   |
-    |  male\_nurse\_positive| 0.2326970           | 1.0000000              | 0.1659322         | -0.0382632       | -0.0420246   | 0.1302183     | 0.0819289   |
-    |       communal\_values| 0.2478697           | 0.1659322              | 1.0000000         | 0.3276650        | -0.3220410   | 0.3577680     | 0.3182880   |
-    |        agentic\_values| 0.0687668           | -0.0382632             | 0.3276650         | 1.0000000        | 0.1006952    | -0.0170592    | -0.0099438  |
-    |            rank\_nurse| -0.1379426          | -0.0420246             | -0.3220410        | 0.1006952        | 1.0000000    | -0.6682702    | -0.6533786  |
-    |           fit\_nursing| 0.3303507           | 0.1302183              | 0.3577680         | -0.0170592       | -0.6682702   | 1.0000000     | 0.6856524   |
-    |         interest\_comp| 0.2565778           | 0.0819289              | 0.3182880         | -0.0099438       | -0.6533786   | 0.6856524     | 1.0000000   |
+    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp nur | sing\_overlap |
+    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|-----------------|:--------------|
+    |     rate\_men\_nursing| 1.0000000           | 0.2326970              | 0.2478697         | 0.0687668        | -0.1379426   | 0.3303507     | 0.2565778       | 0.2532286     |
+    |  male\_nurse\_positive| 0.2326970           | 1.0000000              | 0.1659322         | -0.0382632       | -0.0420246   | 0.1302183     | 0.0819289       | 0.0076918     |
+    |       communal\_values| 0.2478697           | 0.1659322              | 1.0000000         | 0.3276650        | -0.3220410   | 0.3577680     | 0.3182880       | 0.1961048     |
+    |        agentic\_values| 0.0687668           | -0.0382632             | 0.3276650         | 1.0000000        | 0.1006952    | -0.0170592    | -0.0099438      | -0.0626502    |
+    |            rank\_nurse| -0.1379426          | -0.0420246             | -0.3220410        | 0.1006952        | 1.0000000    | -0.6682702    | -0.6533786      | -0.7139428    |
+    |           fit\_nursing| 0.3303507           | 0.1302183              | 0.3577680         | -0.0170592       | -0.6682702   | 1.0000000     | 0.6856524       | 0.6758783     |
+    |         interest\_comp| 0.2565778           | 0.0819289              | 0.3182880         | -0.0099438       | -0.6533786   | 0.6856524     | 1.0000000       | 0.7147575     |
+    |       nursing\_overlap| 0.2532286           | 0.0076918              | 0.1961048         | -0.0626502       | -0.7139428   | 0.6758783     | 0.7147575       | 1.0000000     |
 
-    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp |
-    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|:------------|
-    |     rate\_men\_nursing| NA                  | 0.0204594              | 0.0133729         | 0.4988295        | 0.1733244    | 0.0008394     | 0.0103604   |
-    |  male\_nurse\_positive| 0.0204594           | NA                     | 0.1007067         | 0.7069044        | 0.6795980    | 0.1989047     | 0.4201356   |
-    |       communal\_values| 0.0133729           | 0.1007067              | NA                | 0.0009306        | 0.0011515    | 0.0002773     | 0.0013244   |
-    |        agentic\_values| 0.4988295           | 0.7069044              | 0.0009306         | NA               | 0.3213420    | 0.8669034     | 0.9221821   |
-    |            rank\_nurse| 0.1733244           | 0.6795980              | 0.0011515         | 0.3213420        | NA           | 0.0000000     | 0.0000000   |
-    |           fit\_nursing| 0.0008394           | 0.1989047              | 0.0002773         | 0.8669034        | 0.0000000    | NA            | 0.0000000   |
-    |         interest\_comp| 0.0103604           | 0.4201356              | 0.0013244         | 0.9221821        | 0.0000000    | 0.0000000     | NA          |
+    |                    rat| e\_men\_nursing mal | e\_nurse\_positive com | munal\_values age | ntic\_values ran | k\_nurse fit | \_nursing int | erest\_comp nur | sing\_overlap |
+    |----------------------:|---------------------|------------------------|-------------------|------------------|--------------|---------------|-----------------|:--------------|
+    |     rate\_men\_nursing| NA                  | 0.0204594              | 0.0133729         | 0.4988295        | 0.1733244    | 0.0008394     | 0.0103604       | 0.0114402     |
+    |  male\_nurse\_positive| 0.0204594           | NA                     | 0.1007067         | 0.7069044        | 0.6795980    | 0.1989047     | 0.4201356       | 0.9397683     |
+    |       communal\_values| 0.0133729           | 0.1007067              | NA                | 0.0009306        | 0.0011515    | 0.0002773     | 0.0013244       | 0.0517304     |
+    |        agentic\_values| 0.4988295           | 0.7069044              | 0.0009306         | NA               | 0.3213420    | 0.8669034     | 0.9221821       | 0.5378610     |
+    |            rank\_nurse| 0.1733244           | 0.6795980              | 0.0011515         | 0.3213420        | NA           | 0.0000000     | 0.0000000       | 0.0000000     |
+    |           fit\_nursing| 0.0008394           | 0.1989047              | 0.0002773         | 0.8669034        | 0.0000000    | NA            | 0.0000000       | 0.0000000     |
+    |         interest\_comp| 0.0103604           | 0.4201356              | 0.0013244         | 0.9221821        | 0.0000000    | 0.0000000     | NA              | 0.0000000     |
+    |       nursing\_overlap| 0.0114402           | 0.9397683              | 0.0517304         | 0.5378610        | 0.0000000    | 0.0000000     | 0.0000000       | NA            |
 
 ![](Analyses_nursingpilot_oct2016_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
@@ -243,6 +256,13 @@ Correlations JUST FOR MEN!
 | agentic\_values       | interest\_comp        |  -0.0099438|  0.9221821|
 | rank\_nurse           | interest\_comp        |  -0.6533786|  0.0000000|
 | fit\_nursing          | interest\_comp        |   0.6856524|  0.0000000|
+| rate\_men\_nursing    | nursing\_overlap      |   0.2532286|  0.0114402|
+| male\_nurse\_positive | nursing\_overlap      |   0.0076918|  0.9397683|
+| communal\_values      | nursing\_overlap      |   0.1961048|  0.0517304|
+| agentic\_values       | nursing\_overlap      |  -0.0626502|  0.5378610|
+| rank\_nurse           | nursing\_overlap      |  -0.7139428|  0.0000000|
+| fit\_nursing          | nursing\_overlap      |   0.6758783|  0.0000000|
+| interest\_comp        | nursing\_overlap      |   0.7147575|  0.0000000|
 
 Linear Models
 =============
@@ -355,6 +375,62 @@ coef(summary(BregressionHIGH))
     ## rate_men_nursingHIGH                         1.7229240 8.815594e-02
     ## scale(communal_values)                       2.2701955 2.545564e-02
     ## rate_men_nursingHIGH:scale(communal_values)  0.6217952 5.355659e-01
+
+self-nursing overlap
+====================
+
+``` r
+Dregression <- lm (nursing_overlap ~ scale(rate_men_nursing)*scale(communal_values), data=MENONLY)
+
+
+DregressionLOW <- lm (nursing_overlap ~ rate_men_nursingLOW*scale(communal_values), data=MENONLY)
+
+
+DregressionHIGH <- lm (nursing_overlap ~ rate_men_nursingHIGH*scale(communal_values), data=MENONLY)
+
+coef(summary(Dregression)) 
+```
+
+    ##                                                  Estimate Std. Error
+    ## (Intercept)                                     3.1465125  0.1584504
+    ## scale(rate_men_nursing)                         0.3937095  0.1644632
+    ## scale(communal_values)                          0.1844600  0.1632724
+    ## scale(rate_men_nursing):scale(communal_values) -0.1854473  0.1523014
+    ##                                                  t value     Pr(>|t|)
+    ## (Intercept)                                    19.858030 1.390076e-35
+    ## scale(rate_men_nursing)                         2.393906 1.863423e-02
+    ## scale(communal_values)                          1.129768 2.614185e-01
+    ## scale(rate_men_nursing):scale(communal_values) -1.217633 2.263792e-01
+
+``` r
+coef(summary(DregressionLOW))
+```
+
+    ##                                              Estimate Std. Error   t value
+    ## (Intercept)                                 2.7528030  0.2218849 12.406445
+    ## rate_men_nursingLOW                         0.3937095  0.1644632  2.393906
+    ## scale(communal_values)                      0.3699072  0.1989425  1.859367
+    ## rate_men_nursingLOW:scale(communal_values) -0.1854473  0.1523014 -1.217633
+    ##                                                Pr(>|t|)
+    ## (Intercept)                                1.388794e-21
+    ## rate_men_nursingLOW                        1.863423e-02
+    ## scale(communal_values)                     6.607008e-02
+    ## rate_men_nursingLOW:scale(communal_values) 2.263792e-01
+
+``` r
+coef(summary(DregressionHIGH)) 
+```
+
+    ##                                                  Estimate Std. Error
+    ## (Intercept)                                  3.5402220749  0.2346837
+    ## rate_men_nursingHIGH                         0.3937095377  0.1644632
+    ## scale(communal_values)                      -0.0009872734  0.2452123
+    ## rate_men_nursingHIGH:scale(communal_values) -0.1854472581  0.1523014
+    ##                                                  t value     Pr(>|t|)
+    ## (Intercept)                                 15.085078709 5.871384e-27
+    ## rate_men_nursingHIGH                         2.393906234 1.863423e-02
+    ## scale(communal_values)                      -0.004026198 9.967960e-01
+    ## rate_men_nursingHIGH:scale(communal_values) -1.217633309 2.263792e-01
 
 predicting rank
 ===============
